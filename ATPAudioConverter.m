@@ -22,7 +22,7 @@
 
 @synthesize AudioConverter = audioConverter;
 
-- (id)initWithInputFormat:(AudioStreamBasicDescription)inputFormat outputFormat:(AudioStreamBasicDescription)outputFormat error:(out NSError **)error
+- (id)initWithInputFormat:(AudioStreamBasicDescription)inputFormat outputFormat:(AudioStreamBasicDescription)outputFormat error:(out NSError **)outError
 {
 	self = [super init];
 	if(self != nil)
@@ -30,9 +30,14 @@
 		OSStatus status = AudioConverterNew(&inputFormat, &outputFormat, &audioConverter);
 		if(status != noErr)
 		{
-			if(error != nil)
+			NSError *error = [NSError audioToolboxErrorWithStatus:status];
+			if(outError != nil)
 			{
-				*error = [NSError audioToolboxErrorWithStatus:status];
+				*outError = error;
+			}
+			else
+			{
+				NSLog(@"%s:%d: %@", __FUNCTION__, __LINE__, error);
 			}
 			return nil;
 		}
@@ -45,48 +50,60 @@
 	AudioConverterDispose(audioConverter);
 }
 
-- (BOOL)getSize:(out UInt32 *)size writable:(out BOOL *)writable forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
+- (BOOL)getSize:(out UInt32 *)size writable:(out BOOL *)writable forProperty:(AudioConverterPropertyID)property error:(out NSError **)outError
 {
 	OSStatus status = AudioConverterGetPropertyInfo(audioConverter, property, size, (Boolean *)writable);
 	if(status != noErr)
 	{
-		if(error != nil)
+		NSError *error = [NSError audioToolboxErrorWithStatus:status];
+		if(outError != nil)
 		{
-			*error = [NSError audioToolboxErrorWithStatus:status];
+			*outError = error;
 		}
-		
+		else
+		{
+			NSLog(@"%s:%d: %@", __FUNCTION__, __LINE__, error);
+		}
 		return NO;
 	}
 	
 	return YES;
 }
 
-- (BOOL)getValue:(out void *)value size:(inout UInt32 *)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
+- (BOOL)getValue:(out void *)value size:(inout UInt32 *)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)outError
 {
 	OSStatus status = AudioConverterGetProperty(audioConverter, property, size, value);
 	if(status != noErr)
 	{
-		if(error != nil)
+		NSError *error = [NSError audioToolboxErrorWithStatus:status];
+		if(outError != nil)
 		{
-			*error = [NSError audioToolboxErrorWithStatus:status];
+			*outError = error;
 		}
-		
+		else
+		{
+			NSLog(@"%s:%d: %@", __FUNCTION__, __LINE__, error);
+		}
 		return NO;
 	}
 	
 	return YES;
 }
 
-- (BOOL)setValue:(const void *)value size:(UInt32)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
+- (BOOL)setValue:(const void *)value size:(UInt32)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)outError
 {
 	OSStatus status = AudioConverterSetProperty(audioConverter, property, size, value);
 	if(status != noErr)
 	{
-		if(error != nil)
+		NSError *error = [NSError audioToolboxErrorWithStatus:status];
+		if(outError != nil)
 		{
-			*error = [NSError audioToolboxErrorWithStatus:status];
+			*outError = error;
 		}
-		
+		else
+		{
+			NSLog(@"%s:%d: %@", __FUNCTION__, __LINE__, error);
+		}
 		return NO;
 	}
 	

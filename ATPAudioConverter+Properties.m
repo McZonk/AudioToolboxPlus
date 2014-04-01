@@ -115,4 +115,27 @@
 	return value;
 }
 
+- (NSData *)magicCookie
+{
+	return [self magicCookieWithError:nil];
+}
+
+- (NSData *)magicCookieWithError:(NSError **)error
+{
+	UInt32 size = 0;
+	if(![self getSize:&size writable:NULL forProperty:kAudioConverterCompressionMagicCookie error:error])
+	{
+		return nil;
+	}
+	
+	void *data = malloc(size);
+	if(![self getValue:data size:&size forProperty:kAudioConverterCompressionMagicCookie error:error])
+	{
+		free(data);
+		return nil;
+	}
+	
+	return [NSData dataWithBytesNoCopy:data length:size freeWhenDone:YES];
+}
+
 @end

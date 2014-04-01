@@ -31,4 +31,7 @@
 - (AudioStreamBasicDescription)outputFormat;
 - (AudioStreamBasicDescription)outputFormatWithError:(NSError **)error;
 
+- (NSData *)magicCookie;
+- (NSData *)magicCookieWithError:(NSError **)error;
+
 @end
