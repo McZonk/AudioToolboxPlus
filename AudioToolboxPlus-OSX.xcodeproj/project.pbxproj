@@ -1,0 +1,255 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */; };
+		50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */; };
+		50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11518EAEE2400F20799 /* NSError+ATPError.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudioToolboxPlus.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50A0A0E418EAED5A00F20799 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		50A0A0E718EAED5A00F20799 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		50A0A0E818EAED5A00F20799 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		50A0A0E918EAED5A00F20799 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		50A0A0F518EAED5A00F20799 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		50A0A10C18EAEDBE00F20799 /* AudioToolboxPlus-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AudioToolboxPlus-Prefix.pch"; sourceTree = "<group>"; };
+		50A0A10D18EAEDBE00F20799 /* AudioToolboxPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioToolboxPlus.h; sourceTree = "<group>"; };
+		50A0A11018EAEE2400F20799 /* ATPAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPAudioConverter.h; sourceTree = "<group>"; };
+		50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPAudioConverter.m; sourceTree = "<group>"; };
+		50A0A11218EAEE2400F20799 /* ATPAudioConverter+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ATPAudioConverter+Properties.h"; sourceTree = "<group>"; };
+		50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ATPAudioConverter+Properties.m"; sourceTree = "<group>"; };
+		50A0A11418EAEE2400F20799 /* NSError+ATPError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ATPError.h"; sourceTree = "<group>"; };
+		50A0A11518EAEE2400F20799 /* NSError+ATPError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ATPError.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		50A0A0D818EAED5A00F20799 = {
+			isa = PBXGroup;
+			children = (
+				50A0A10B18EAEDB300F20799 /* AudioToolboxPlus */,
+				50A0A0E318EAED5A00F20799 /* Frameworks */,
+				50A0A0E218EAED5A00F20799 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		50A0A0E218EAED5A00F20799 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		50A0A0E318EAED5A00F20799 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50A0A0E418EAED5A00F20799 /* Cocoa.framework */,
+				50A0A0F518EAED5A00F20799 /* XCTest.framework */,
+				50A0A0E618EAED5A00F20799 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		50A0A0E618EAED5A00F20799 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				50A0A0E718EAED5A00F20799 /* Foundation.framework */,
+				50A0A0E818EAED5A00F20799 /* CoreData.framework */,
+				50A0A0E918EAED5A00F20799 /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		50A0A10B18EAEDB300F20799 /* AudioToolboxPlus */ = {
+			isa = PBXGroup;
+			children = (
+				50A0A10C18EAEDBE00F20799 /* AudioToolboxPlus-Prefix.pch */,
+				50A0A10D18EAEDBE00F20799 /* AudioToolboxPlus.h */,
+				50A0A11018EAEE2400F20799 /* ATPAudioConverter.h */,
+				50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */,
+				50A0A11218EAEE2400F20799 /* ATPAudioConverter+Properties.h */,
+				50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */,
+				50A0A11418EAEE2400F20799 /* NSError+ATPError.h */,
+				50A0A11518EAEE2400F20799 /* NSError+ATPError.m */,
+			);
+			name = AudioToolboxPlus;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		50A0A0E018EAED5A00F20799 /* AudioToolboxPlus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50A0A10518EAED5A00F20799 /* Build configuration list for PBXNativeTarget "AudioToolboxPlus" */;
+			buildPhases = (
+				50A0A0DD18EAED5A00F20799 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AudioToolboxPlus;
+			productName = AudioToolboxPlus;
+			productReference = 50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		50A0A0D918EAED5A00F20799 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = McZonk;
+			};
+			buildConfigurationList = 50A0A0DC18EAED5A00F20799 /* Build configuration list for PBXProject "AudioToolboxPlus-OSX" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 50A0A0D818EAED5A00F20799;
+			productRefGroup = 50A0A0E218EAED5A00F20799 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				50A0A0E018EAED5A00F20799 /* AudioToolboxPlus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		50A0A0DD18EAED5A00F20799 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */,
+				50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */,
+				50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		50A0A10318EAED5A00F20799 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		50A0A10418EAED5A00F20799 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		50A0A10618EAED5A00F20799 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AudioToolboxPlus-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		50A0A10718EAED5A00F20799 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "AudioToolboxPlus-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		50A0A0DC18EAED5A00F20799 /* Build configuration list for PBXProject "AudioToolboxPlus-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50A0A10318EAED5A00F20799 /* Debug */,
+				50A0A10418EAED5A00F20799 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		50A0A10518EAED5A00F20799 /* Build configuration list for PBXNativeTarget "AudioToolboxPlus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50A0A10618EAED5A00F20799 /* Debug */,
+				50A0A10718EAED5A00F20799 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 50A0A0D918EAED5A00F20799 /* Project object */;
+}
