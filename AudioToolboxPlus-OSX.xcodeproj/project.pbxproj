@@ -14,11 +14,6 @@
 
 /* Begin PBXFileReference section */
 		50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudioToolboxPlus.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		50A0A0E418EAED5A00F20799 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		50A0A0E718EAED5A00F20799 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		50A0A0E818EAED5A00F20799 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		50A0A0E918EAED5A00F20799 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		50A0A0F518EAED5A00F20799 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		50A0A10C18EAEDBE00F20799 /* AudioToolboxPlus-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AudioToolboxPlus-Prefix.pch"; sourceTree = "<group>"; };
 		50A0A10D18EAEDBE00F20799 /* AudioToolboxPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioToolboxPlus.h; sourceTree = "<group>"; };
 		50A0A11018EAEE2400F20799 /* ATPAudioConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPAudioConverter.h; sourceTree = "<group>"; };
@@ -50,21 +45,8 @@
 		50A0A0E318EAED5A00F20799 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				50A0A0E418EAED5A00F20799 /* Cocoa.framework */,
-				50A0A0F518EAED5A00F20799 /* XCTest.framework */,
-				50A0A0E618EAED5A00F20799 /* Other Frameworks */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		50A0A0E618EAED5A00F20799 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				50A0A0E718EAED5A00F20799 /* Foundation.framework */,
-				50A0A0E818EAED5A00F20799 /* CoreData.framework */,
-				50A0A0E918EAED5A00F20799 /* AppKit.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		50A0A10B18EAEDB300F20799 /* AudioToolboxPlus */ = {
