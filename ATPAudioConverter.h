@@ -20,6 +20,10 @@
 
 - (BOOL)getValue:(out void *)value size:(inout UInt32 *)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
 
+- (NSData *)dataForProperty:(AudioConverterPropertyID)property error:(NSError **)error;
+
 - (BOOL)setValue:(const void *)value size:(UInt32)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
+
+- (BOOL)setData:(NSData *)data forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
 
 @end

@@ -1,12 +1,7 @@
-//
-//  CAPAudioConverter+Properties.m
-//  CoreAudio
-//
-//  Created by Maximilian Christ on 18/01/14.
-//  Copyright (c) 2014 McZonk. All rights reserved.
-//
-
 #import "ATPAudioConverter+Properties.h"
+
+#import "NSValue+ATPAudioValueRange.h"
+
 
 @implementation ATPAudioConverter (Properties)
 
@@ -85,6 +80,114 @@
 	return value;
 }
 
+- (NSData *)magicCookie
+{
+	return [self magicCookieWithError:nil];
+}
+
+- (NSData *)magicCookieWithError:(NSError **)error
+{
+	return [self dataForProperty:kAudioConverterCompressionMagicCookie error:error];
+}
+
+- (UInt32)codecQuality
+{
+	return [self codecQualityWithError:nil];
+}
+
+- (UInt32)codecQualityWithError:(NSError **)error
+{
+	UInt32 value = { 0 };
+	UInt32 size = sizeof(value);
+	
+	[self getValue:&value size:&size forProperty:kAudioConverterCodecQuality error:error];
+	
+	return value;
+}
+
+- (void)setCodecQuality:(UInt32)codecQuality
+{
+	[self setCodecQuality:codecQuality error:nil];
+}
+
+- (void)setCodecQuality:(UInt32)codecQuality error:(NSError **)error
+{
+	UInt32 value = codecQuality;
+	
+	[self setValue:&value size:sizeof(value) forProperty:kAudioConverterCodecQuality error:error];
+}
+
+- (UInt32)encodeBitRate
+{
+	return [self encodeBitRateWithError:nil];
+}
+
+- (UInt32)encodeBitRateWithError:(NSError **)error
+{
+	UInt32 value = { 0 };
+	UInt32 size = sizeof(value);
+	
+	[self getValue:&value size:&size forProperty:kAudioConverterEncodeBitRate error:error];
+	
+	return value;
+}
+
+- (void)setEncodeBitRate:(UInt32)encodeBitRate
+{
+	[self setEncodeBitRate:encodeBitRate error:nil];
+}
+
+- (void)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error
+{
+	UInt32 value = encodeBitRate;
+	
+	[self setValue:&value size:sizeof(value) forProperty:kAudioConverterEncodeBitRate error:error];
+}
+
+- (NSArray *)applicableEncodeBitRates
+{
+	return [self applicableEncodeBitRatesWithError:nil];
+}
+
+- (NSArray *)applicableEncodeBitRatesWithError:(NSError **)error
+{
+	NSData *data = [self dataForProperty:kAudioConverterApplicableEncodeBitRates error:error];
+	
+	const AudioValueRange *bytes = data.bytes;
+	const NSUInteger count = data.length / sizeof(AudioValueRange);
+	
+	NSMutableArray *values = [NSMutableArray arrayWithCapacity:count];
+	for(NSUInteger i = 0; i < count; ++i)
+	{
+		NSValue *value = [NSValue valueWithAudioValueRange:bytes[i]];
+		[values addObject:value];
+	}
+	
+	return [values copy];
+}
+
+- (NSArray *)availableEncodeBitRates
+{
+	return [self availableEncodeBitRatesWithError:nil];
+}
+
+- (NSArray *)availableEncodeBitRatesWithError:(NSError **)error
+{
+	NSData *data = [self dataForProperty:kAudioConverterAvailableEncodeBitRates error:error];
+	
+	const AudioValueRange *bytes = data.bytes;
+	const NSUInteger count = data.length / sizeof(AudioValueRange);
+	
+	NSMutableArray *values = [NSMutableArray arrayWithCapacity:count];
+	for(NSUInteger i = 0; i < count; ++i)
+	{
+		NSValue *value = [NSValue valueWithAudioValueRange:bytes[i]];
+		[values addObject:value];
+	}
+	
+	return [values copy];
+}
+
 - (AudioStreamBasicDescription)inputFormat
 {
 	return [self inputFormatWithError:nil];
@@ -113,29 +216,6 @@
 	[self getValue:&value size:&size forProperty:kAudioConverterCurrentOutputStreamDescription error:error];
 	
 	return value;
-}
-
-- (NSData *)magicCookie
-{
-	return [self magicCookieWithError:nil];
-}
-
-- (NSData *)magicCookieWithError:(NSError **)error
-{
-	UInt32 size = 0;
-	if(![self getSize:&size writable:NULL forProperty:kAudioConverterCompressionMagicCookie error:error])
-	{
-		return nil;
-	}
-	
-	void *data = malloc(size);
-	if(![self getValue:data size:&size forProperty:kAudioConverterCompressionMagicCookie error:error])
-	{
-		free(data);
-		return nil;
-	}
-	
-	return [NSData dataWithBytesNoCopy:data length:size freeWhenDone:YES];
 }
 
 @end

@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5024F91318EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 5024F91218EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m */; };
 		50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */; };
 		50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */; };
 		50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11518EAEE2400F20799 /* NSError+ATPError.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5024F91118EDC6FD00B96639 /* NSValue+ATPAudioValueRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+ATPAudioValueRange.h"; sourceTree = "<group>"; };
+		5024F91218EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSValue+ATPAudioValueRange.m"; sourceTree = "<group>"; };
 		50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudioToolboxPlus.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		50A0A10C18EAEDBE00F20799 /* AudioToolboxPlus-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AudioToolboxPlus-Prefix.pch"; sourceTree = "<group>"; };
 		50A0A10D18EAEDBE00F20799 /* AudioToolboxPlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioToolboxPlus.h; sourceTree = "<group>"; };
@@ -60,6 +63,8 @@
 				50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */,
 				50A0A11418EAEE2400F20799 /* NSError+ATPError.h */,
 				50A0A11518EAEE2400F20799 /* NSError+ATPError.m */,
+				5024F91118EDC6FD00B96639 /* NSValue+ATPAudioValueRange.h */,
+				5024F91218EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m */,
 			);
 			name = AudioToolboxPlus;
 			sourceTree = "<group>";
@@ -114,6 +119,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */,
+				5024F91318EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m in Sources */,
 				50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */,
 				50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */,
 			);

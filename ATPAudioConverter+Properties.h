@@ -1,11 +1,3 @@
-//
-//  CAPAudioConverter+Properties.h
-//  CoreAudio
-//
-//  Created by Maximilian Christ on 18/01/14.
-//  Copyright (c) 2014 McZonk. All rights reserved.
-//
-
 #import "ATPAudioConverter.h"
 
 @interface ATPAudioConverter (Properties)
@@ -25,13 +17,31 @@
 - (UInt32)maximumOutputPacketSize;
 - (UInt32)maximumOutputPacketSizeWithError:(NSError **)error;
 
+- (NSData *)magicCookie;
+- (NSData *)magicCookieWithError:(NSError **)error;
+
+- (UInt32)codecQuality;
+- (UInt32)codecQualityWithError:(NSError **)error;
+
+- (void)setCodecQuality:(UInt32)codecQuality;
+- (void)setCodecQuality:(UInt32)codecQuality error:(NSError **)error;
+
+- (UInt32)encodeBitRate;
+- (UInt32)encodeBitRateWithError:(NSError **)error;
+
+- (void)setEncodeBitRate:(UInt32)encodeBitRate;
+- (void)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error;
+
+- (NSArray *)applicableEncodeBitRates;
+- (NSArray *)applicableEncodeBitRatesWithError:(NSError **)error;
+
+- (NSArray *)availableEncodeBitRates;
+- (NSArray *)availableEncodeBitRatesWithError:(NSError **)error;
+
 - (AudioStreamBasicDescription)inputFormat;
 - (AudioStreamBasicDescription)inputFormatWithError:(NSError **)error;
 
 - (AudioStreamBasicDescription)outputFormat;
 - (AudioStreamBasicDescription)outputFormatWithError:(NSError **)error;
-
-- (NSData *)magicCookie;
-- (NSData *)magicCookieWithError:(NSError **)error;
 
 @end
