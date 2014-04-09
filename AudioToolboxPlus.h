@@ -1,3 +1,5 @@
+#import "ATPAudioCompressionSession.h"
+
 #import "ATPAudioConverter.h"
 #import "ATPAudioConverter+Properties.h"
 

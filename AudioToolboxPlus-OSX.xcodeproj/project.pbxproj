@@ -11,6 +11,9 @@
 		50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */; };
 		50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */; };
 		50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11518EAEE2400F20799 /* NSError+ATPError.m */; };
+		50BCFE4718F5621C00227FC0 /* ATPAudioCompressionSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE4618F5621C00227FC0 /* ATPAudioCompressionSession.m */; };
+		50BCFE5018F5866000227FC0 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE4E18F5866000227FC0 /* TPCircularBuffer.c */; };
+		50BCFE5318F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE5118F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,12 @@
 		50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ATPAudioConverter+Properties.m"; sourceTree = "<group>"; };
 		50A0A11418EAEE2400F20799 /* NSError+ATPError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ATPError.h"; sourceTree = "<group>"; };
 		50A0A11518EAEE2400F20799 /* NSError+ATPError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ATPError.m"; sourceTree = "<group>"; };
+		50BCFE4518F5621C00227FC0 /* ATPAudioCompressionSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPAudioCompressionSession.h; sourceTree = "<group>"; };
+		50BCFE4618F5621C00227FC0 /* ATPAudioCompressionSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPAudioCompressionSession.m; sourceTree = "<group>"; };
+		50BCFE4E18F5866000227FC0 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
+		50BCFE4F18F5866000227FC0 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
+		50BCFE5118F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "TPCircularBuffer+AudioBufferList.c"; sourceTree = "<group>"; };
+		50BCFE5218F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TPCircularBuffer+AudioBufferList.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -61,10 +70,16 @@
 				50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */,
 				50A0A11218EAEE2400F20799 /* ATPAudioConverter+Properties.h */,
 				50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */,
+				50BCFE4518F5621C00227FC0 /* ATPAudioCompressionSession.h */,
+				50BCFE4618F5621C00227FC0 /* ATPAudioCompressionSession.m */,
 				50A0A11418EAEE2400F20799 /* NSError+ATPError.h */,
 				50A0A11518EAEE2400F20799 /* NSError+ATPError.m */,
 				5024F91118EDC6FD00B96639 /* NSValue+ATPAudioValueRange.h */,
 				5024F91218EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m */,
+				50BCFE4F18F5866000227FC0 /* TPCircularBuffer.h */,
+				50BCFE4E18F5866000227FC0 /* TPCircularBuffer.c */,
+				50BCFE5218F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.h */,
+				50BCFE5118F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c */,
 			);
 			name = AudioToolboxPlus;
 			sourceTree = "<group>";
@@ -118,6 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50BCFE5318F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c in Sources */,
+				50BCFE5018F5866000227FC0 /* TPCircularBuffer.c in Sources */,
+				50BCFE4718F5621C00227FC0 /* ATPAudioCompressionSession.m in Sources */,
 				50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */,
 				5024F91318EDC6FD00B96639 /* NSValue+ATPAudioValueRange.m in Sources */,
 				50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */,
