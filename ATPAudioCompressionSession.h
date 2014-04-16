@@ -29,4 +29,6 @@
 - (BOOL)encodeSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 //- (void)encodeAudioBufferList:(const AudioBufferList *)audioBufferList;
 
+- (BOOL)finish;
+
 @end

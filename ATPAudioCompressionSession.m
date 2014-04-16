@@ -6,6 +6,13 @@
 #import "TPCircularBuffer.h"
 
 
+enum {
+	/**
+	 * This custom error code is used when an AudioConverterFill…Buffer has no sufficent amount of data. This is not an error if there is enough data at a later time.
+	 */
+	kAudioConverterErr_Underrun = 'urun',
+};
+
 @interface ATPAudioCompressionSession ()
 {
 	TPCircularBuffer circularBuffer;
@@ -22,6 +29,8 @@
 
 @property (nonatomic, assign) CMTime presentationTimeStamp;
 
+@property (nonatomic, assign) BOOL finishing;
+
 @end
 
 
@@ -33,8 +42,6 @@
 	if(self != nil)
 	{
 		self.outputFormat = outputFormat;
-		
-		self.converterQueue = dispatch_queue_create("ATPAudioCompressionSession", DISPATCH_QUEUE_SERIAL);
 		
 		TPCircularBufferInit(&circularBuffer, 128 * 1024);
 	}
@@ -75,8 +82,6 @@
 	CMAudioFormatDescriptionRef outputFormatDescription = NULL;
 	CMAudioFormatDescriptionCreate(NULL, &outputFormat, sizeof(channelLayout), &channelLayout, magicCookie.length, magicCookie.bytes, NULL, &outputFormatDescription);
 	
-	NSLog(@"%@", outputFormatDescription);
-	
 	self.outputFormatDescription = outputFormatDescription;
 	
 	self.presentationTimeStamp = CMTimeMake(0, 44100);
@@ -89,20 +94,25 @@
 	return &circularBuffer;
 }
 
-static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32* ioNumberDataPackets, AudioBufferList* bufferList, AudioStreamPacketDescription**  outDataPacketDescription, void*                           inUserData)
+static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32 *ioNumberDataPackets, AudioBufferList *bufferList, AudioStreamPacketDescription **outDataPacketDescription, void *inUserData)
 {
 	ATPAudioCompressionSession *self = (__bridge ATPAudioCompressionSession *)inUserData;
 	
 	TPCircularBuffer *circularBuffer = self.circularBuffer;
 	
-	const UInt32 bufferLength = *ioNumberDataPackets * 8;
+	UInt32 bufferLength = *ioNumberDataPackets * 8;
 	
 	int32_t availableBytes;
-	void * data = TPCircularBufferTail(circularBuffer, &availableBytes);
+	void * const data = TPCircularBufferTail(circularBuffer, &availableBytes);
 	
-	if(availableBytes < bufferLength)
+	if(self.finishing)
 	{
-		return 0x4242;
+		bufferLength = availableBytes;
+		*ioNumberDataPackets = bufferLength / 8;
+	}
+	else if(availableBytes < bufferLength)
+	{
+		return kAudioConverterErr_Underrun;
 	}
 	
 	bufferList->mNumberBuffers = 1;
@@ -112,10 +122,67 @@ static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32* ioN
 	buffer->mDataByteSize = bufferLength;
 	buffer->mData = data;
 	
-	printf("Read %lu bytes from ring buffer\n", (unsigned long)bufferLength);
 	TPCircularBufferConsume(circularBuffer, bufferLength);
 	
 	return noErr;
+}
+
+- (void)encodeAudioPackets
+{
+	ATPAudioConverter * const converter = self.converter;
+		
+	const size_t length = converter.maximumOutputPacketSize;
+
+	while(1)
+	{
+		void *data = malloc(length);
+			
+		UInt32 outputDataPackets = 1;
+			
+		AudioBufferList outputData;
+		outputData.mNumberBuffers = 1;
+		outputData.mBuffers[0].mNumberChannels = 2;
+		outputData.mBuffers[0].mDataByteSize = (UInt32)length;
+		outputData.mBuffers[0].mData = data;
+			
+		AudioStreamPacketDescription outputPacketDescription;
+			
+		OSStatus status = AudioConverterFillComplexBuffer(converter.AudioConverter, ATPAudioCallback, (__bridge void *)self, &outputDataPackets, &outputData, &outputPacketDescription);
+		if(status != noErr)
+		{
+			free(data);
+			data = NULL;
+			
+			if(status == kAudioConverterErr_Underrun)
+			{
+				break;
+			}
+				
+			break;
+		}
+			
+		CMTime presentationTimeStamp = self.presentationTimeStamp;
+			
+		CMBlockBufferRef dataBuffer = NULL;
+		status = CMBlockBufferCreateWithMemoryBlock(NULL, data, length, NULL, NULL, 0, outputPacketDescription.mDataByteSize, kCMBlockBufferAssureMemoryNowFlag, &dataBuffer); // data is consumed here, no more free
+		if(status != noErr)
+		{
+			break;
+		}
+			
+		CMSampleBufferRef sampleBuffer = NULL;
+		status = CMAudioSampleBufferCreateWithPacketDescriptions(NULL, dataBuffer, true, NULL, NULL, self.outputFormatDescription, 1, presentationTimeStamp, &outputPacketDescription, &sampleBuffer);
+			
+		self.presentationTimeStamp = CMTimeAdd(presentationTimeStamp, CMSampleBufferGetDuration(sampleBuffer));
+			
+		dispatch_async(self.delegateQueue, ^{
+			[self.delegate audioCompressionSession:self didEncodeSampleBuffer:sampleBuffer];
+				
+			CFRelease(sampleBuffer);
+		});
+			
+		CFRelease(dataBuffer);
+	}
 }
 
 - (BOOL)encodeSampleBuffer:(CMSampleBufferRef const)sampleBuffer
@@ -128,105 +195,52 @@ static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32* ioN
 		return NO;
 	}
 	
-	CFRetain(sampleBuffer);
-	dispatch_async(self.converterQueue, ^{
+	if(self.converter == nil)
+	{
+		[self setupConverterWithFormatDescription:formatDescription];
+	}
 		
-		// Fill the ring buffer
-		{
-			CMBlockBufferRef dataBuffer = CMSampleBufferGetDataBuffer(sampleBuffer);
+	// Fill the ring buffer
+	{
+		CMBlockBufferRef dataBuffer = CMSampleBufferGetDataBuffer(sampleBuffer);
 			
-			size_t offset = 0;
-			size_t length = CMBlockBufferGetDataLength(dataBuffer);
+		size_t offset = 0;
+		size_t length = CMBlockBufferGetDataLength(dataBuffer);
 
-			while(length > 0)
-			{
-				char *bytes = NULL;
-				size_t lengthAtOffset = 0;
-				CMBlockBufferGetDataPointer(dataBuffer, offset, &lengthAtOffset, NULL, &bytes);
-
-				if(lengthAtOffset > length)
-				{
-					lengthAtOffset = length;
-				}
-				
-				printf("Write %lu bytes to ring buffer\n", (unsigned long)lengthAtOffset);
-				if(!TPCircularBufferProduceBytes(&circularBuffer, bytes, (int32_t)lengthAtOffset))
-				{
-					// the ring buffer is full ...
-					break;
-				}
-				
-				offset += lengthAtOffset;
-				length -= lengthAtOffset;
-			}
-
-			CFRelease(sampleBuffer);
-		}
-
-		// Consume the buffer
+		while(length > 0)
 		{
-			if(self.converter == nil)
+			char *bytes = NULL;
+			size_t lengthAtOffset = 0;
+			CMBlockBufferGetDataPointer(dataBuffer, offset, &lengthAtOffset, NULL, &bytes);
+
+			if(lengthAtOffset > length)
 			{
-				[self setupConverterWithFormatDescription:formatDescription];
+				lengthAtOffset = length;
 			}
-
-			ATPAudioConverter * const converter = self.converter;
 			
-			while(1) {
-				const size_t length = converter.maximumOutputPacketSize;
-				void *data = malloc(length);
-				
-				UInt32 outputDataPackets = 1;
-				
-				AudioBufferList outputData;
-				outputData.mNumberBuffers = 1;
-				outputData.mBuffers[0].mNumberChannels = 2;
-				outputData.mBuffers[0].mDataByteSize = (UInt32)length;
-				outputData.mBuffers[0].mData = data;
-				
-				AudioStreamPacketDescription outputPacketDescription;
-
-				OSStatus status = AudioConverterFillComplexBuffer(converter.AudioConverter, ATPAudioCallback, (__bridge void *)self, &outputDataPackets, &outputData, &outputPacketDescription);
-				if(status != noErr)
-				{
-					free(data);
-					data = NULL;
-					
-					if(status == 0x4242)
-					{
-						break;
-					}
-					
-					break;
-				}
-				
-				CMTime presentationTimeStamp = self.presentationTimeStamp;
-				
-				CMBlockBufferRef dataBuffer = NULL;
-				status = CMBlockBufferCreateWithMemoryBlock(NULL, data, length, NULL, NULL, 0, outputPacketDescription.mDataByteSize, kCMBlockBufferAssureMemoryNowFlag, &dataBuffer);
-				if(status != noErr)
-				{
-					break;
-				}
-				
-				CMSampleBufferRef outSampleBuffer = NULL;
-				status = CMAudioSampleBufferCreateWithPacketDescriptions(NULL, dataBuffer, true, NULL, NULL, self.outputFormatDescription, 1, presentationTimeStamp, &outputPacketDescription, &outSampleBuffer);
-				
-				self.presentationTimeStamp = CMTimeAdd(presentationTimeStamp, CMSampleBufferGetDuration(outSampleBuffer));
-				
-				dispatch_async(self.delegateQueue, ^{
-					[self.delegate audioCompressionSession:self didEncodeSampleBuffer:outSampleBuffer];
-					
-					CFRelease(outSampleBuffer);
-				});
-				
-				CFRelease(dataBuffer);
+			if(!TPCircularBufferProduceBytes(&circularBuffer, bytes, (int32_t)lengthAtOffset))
+			{
+				// the ring buffer is full ...
+				break;
 			}
+			
+			offset += lengthAtOffset;
+			length -= lengthAtOffset;
 		}
-	});
+	}
+
+	[self encodeAudioPackets];
 	
 	return YES;
 }
 
+- (BOOL)finish
+{
+	self.finishing = YES;
+		
+	[self encodeAudioPackets];
+		
+	return YES;
+}
 
 @end
