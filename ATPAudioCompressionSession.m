@@ -171,15 +171,18 @@ static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32 *ioN
 		}
 			
 		CMSampleBufferRef sampleBuffer = NULL;
-		status = CMAudioSampleBufferCreateWithPacketDescriptions(NULL, dataBuffer, true, NULL, NULL, self.outputFormatDescription, 1, presentationTimeStamp, &outputPacketDescription, &sampleBuffer);
-			
+		CMAudioSampleBufferCreateWithPacketDescriptions(NULL, dataBuffer, true, NULL, NULL, self.outputFormatDescription, 1, presentationTimeStamp, &outputPacketDescription, &sampleBuffer);
+		
 		self.presentationTimeStamp = CMTimeAdd(presentationTimeStamp, CMSampleBufferGetDuration(sampleBuffer));
-			
-		dispatch_async(self.delegateQueue, ^{
-			[self.delegate audioCompressionSession:self didEncodeSampleBuffer:sampleBuffer];
+
+		if(sampleBuffer != NULL)
+		{
+			dispatch_async(self.delegateQueue, ^{
+				[self.delegate audioCompressionSession:self didEncodeSampleBuffer:sampleBuffer];
 				
-			CFRelease(sampleBuffer);
-		});
+				CFRelease(sampleBuffer);
+			});
+		}
 			
 		CFRelease(dataBuffer);
 	}
