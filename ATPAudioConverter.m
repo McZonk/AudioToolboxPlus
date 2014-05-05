@@ -104,6 +104,7 @@
 	void *data = malloc(size);
 	if(![self getValue:data size:&size forProperty:property error:error])
 	{
+		free(data);
 		return nil;
 	}
 	
