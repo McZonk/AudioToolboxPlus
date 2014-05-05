@@ -23,14 +23,14 @@
 - (UInt32)codecQuality;
 - (UInt32)codecQualityWithError:(NSError **)error;
 
-- (void)setCodecQuality:(UInt32)codecQuality;
-- (void)setCodecQuality:(UInt32)codecQuality error:(NSError **)error;
+- (BOOL)setCodecQuality:(UInt32)codecQuality;
+- (BOOL)setCodecQuality:(UInt32)codecQuality error:(NSError **)error;
 
 - (UInt32)encodeBitRate;
 - (UInt32)encodeBitRateWithError:(NSError **)error;
 
-- (void)setEncodeBitRate:(UInt32)encodeBitRate;
-- (void)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error;
+- (BOOL)setEncodeBitRate:(UInt32)encodeBitRate;
+- (BOOL)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error;
 
 - (NSArray *)applicableEncodeBitRates;
 - (NSArray *)applicableEncodeBitRatesWithError:(NSError **)error;

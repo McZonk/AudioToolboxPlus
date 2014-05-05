@@ -105,16 +105,16 @@
 	return value;
 }
 
-- (void)setCodecQuality:(UInt32)codecQuality
+- (BOOL)setCodecQuality:(UInt32)codecQuality
 {
-	[self setCodecQuality:codecQuality error:nil];
+	return [self setCodecQuality:codecQuality error:nil];
 }
 
-- (void)setCodecQuality:(UInt32)codecQuality error:(NSError **)error
+- (BOOL)setCodecQuality:(UInt32)codecQuality error:(NSError **)error
 {
 	UInt32 value = codecQuality;
 	
-	[self setValue:&value size:sizeof(value) forProperty:kAudioConverterCodecQuality error:error];
+	return [self setValue:&value size:sizeof(value) forProperty:kAudioConverterCodecQuality error:error];
 }
 
 - (UInt32)encodeBitRate
@@ -132,16 +132,16 @@
 	return value;
 }
 
-- (void)setEncodeBitRate:(UInt32)encodeBitRate
+- (BOOL)setEncodeBitRate:(UInt32)encodeBitRate
 {
-	[self setEncodeBitRate:encodeBitRate error:nil];
+	return [self setEncodeBitRate:encodeBitRate error:nil];
 }
 
-- (void)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error
+- (BOOL)setEncodeBitRate:(UInt32)encodeBitRate error:(NSError **)error
 {
 	UInt32 value = encodeBitRate;
 	
-	[self setValue:&value size:sizeof(value) forProperty:kAudioConverterEncodeBitRate error:error];
+	return [self setValue:&value size:sizeof(value) forProperty:kAudioConverterEncodeBitRate error:error];
 }
 
 - (NSArray *)applicableEncodeBitRates
