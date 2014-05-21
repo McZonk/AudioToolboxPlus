@@ -6,3 +6,5 @@
 #import "NSError+ATPError.h"
 
 #import "NSValue+ATPAudioValueRange.h"
+
+#import "TPCircularBuffer.h"
