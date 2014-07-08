@@ -108,7 +108,7 @@
 		50A0A0D918EAED5A00F20799 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = McZonk;
 			};
 			buildConfigurationList = 50A0A0DC18EAED5A00F20799 /* Build configuration list for PBXProject "AudioToolboxPlus-OSX" */;
@@ -219,6 +219,7 @@
 		50A0A10618EAED5A00F20799 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AudioToolboxPlus-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -228,6 +229,7 @@
 		50A0A10718EAED5A00F20799 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AudioToolboxPlus-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
