@@ -64,14 +64,22 @@ enum {
 	const AudioStreamBasicDescription * const inputFormat = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription);
 	if(inputFormat == nil)
 	{
-		// TODO: error handling
+		NSLog(@"%s:%d:TODO: error", __FUNCTION__, __LINE__);
 		return;
 	}
-		
-	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:*inputFormat outputFormat:self.outputFormat error:nil];
+	
+	AudioStreamBasicDescription outputFormat = self.outputFormat;
+	
+	if(outputFormat.mSampleRate != 0 && outputFormat.mSampleRate != inputFormat->mSampleRate)
+	{
+		NSLog(@"%s:%d:TODO: error", __FUNCTION__, __LINE__);
+		return;
+	}
+	
+	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:*inputFormat outputFormat:outputFormat error:nil];
 	self.converter = converter;
 	
-	AudioStreamBasicDescription outputFormat = converter.outputFormat;
+	outputFormat = converter.outputFormat;
 	self.outputFormat = outputFormat; // some fields will be filled after creating the code
 	
 	AudioChannelLayout channelLayout = { 0 };
@@ -84,7 +92,7 @@ enum {
 	
 	self.outputFormatDescription = outputFormatDescription;
 	
-	self.presentationTimeStamp = CMTimeMake(0, 44100);
+	self.presentationTimeStamp = kCMTimeZero;
 	
 	CFRelease(outputFormatDescription);
 }
