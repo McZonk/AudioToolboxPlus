@@ -18,6 +18,8 @@ enum {
 	TPCircularBuffer circularBuffer;
 }
 
+@property (nonatomic, assign) UInt32 inputBytesPerFrame;
+
 @property (nonatomic, assign) AudioStreamBasicDescription outputFormat;
 @property (nonatomic, strong) __attribute__((NSObject)) CMAudioFormatDescriptionRef outputFormatDescription;
 
@@ -68,6 +70,8 @@ enum {
 		return;
 	}
 	
+	self.inputBytesPerFrame = inputFormat->mBytesPerFrame;
+	
 	AudioStreamBasicDescription outputFormat = self.outputFormat;
 	
 	if(outputFormat.mSampleRate != 0 && outputFormat.mSampleRate != inputFormat->mSampleRate)
@@ -108,7 +112,9 @@ static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32 *ioN
 	
 	TPCircularBuffer *circularBuffer = self.circularBuffer;
 	
-	UInt32 bufferLength = *ioNumberDataPackets * 8;
+	const UInt32 bytesPerFrame = self.inputBytesPerFrame;
+	
+	UInt32 bufferLength = *ioNumberDataPackets * bytesPerFrame;
 	
 	int32_t availableBytes;
 	void * const data = TPCircularBufferTail(circularBuffer, &availableBytes);
@@ -116,7 +122,7 @@ static OSStatus ATPAudioCallback(AudioConverterRef inAudioConverter, UInt32 *ioN
 	if(self.finishing)
 	{
 		bufferLength = availableBytes;
-		*ioNumberDataPackets = bufferLength / 8;
+		*ioNumberDataPackets = bufferLength / bytesPerFrame;
 	}
 	else if(availableBytes < bufferLength)
 	{
