@@ -5,6 +5,7 @@
 
 
 @class ATPAudioCompressionSession;
+@class ATPAudioConverter;
 
 
 @protocol ATPAudioCompressionSessionDelegate <NSObject>
@@ -20,6 +21,8 @@
 - (instancetype)initWithOutputFormat:(AudioStreamBasicDescription)outputFormat;
 
 @property (nonatomic, assign, readonly) AudioStreamBasicDescription outputFormat;
+
+@property (nonatomic, strong, readonly) ATPAudioConverter *audioConverter;
 
 @property (nonatomic, weak, readonly) id<ATPAudioCompressionSessionDelegate> delegate;
 @property (nonatomic, strong, readonly) dispatch_queue_t delegateQueue;
