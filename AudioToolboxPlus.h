@@ -2,6 +2,7 @@
 
 #import "ATPAudioConverter.h"
 #import "ATPAudioConverter+Properties.h"
+#import "ATPAudioConverter+PropertiesFromDictionary.h"
 
 #import "NSError+ATPError.h"
 
