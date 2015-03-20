@@ -28,7 +28,7 @@
 	[super tearDown];
 }
 
-- (void)testSimplePCMConvert
+- (void)testFloatToShortPCMConvert
 {
 	AudioStreamBasicDescription inASBD = { 0 };
 	inASBD.mSampleRate = 44100.0;
@@ -39,7 +39,6 @@
 	inASBD.mBytesPerFrame = 4;
 	inASBD.mChannelsPerFrame = 1;
 	inASBD.mBitsPerChannel = 32;
-	inASBD.mReserved = 0;
 	
 	AudioStreamBasicDescription outASBD = { 0 };
 	outASBD.mSampleRate = 44100.0;
@@ -50,7 +49,6 @@
 	outASBD.mBytesPerFrame = 2;
 	outASBD.mChannelsPerFrame = 1;
 	outASBD.mBitsPerChannel = 16;
-	outASBD.mReserved = 0;
 	
 	NSError *error = nil;
 	
@@ -78,6 +76,62 @@
 	XCTAssert(error == nil, @"%@", error);
 	
 	XCTAssert(memcmp(convertedData, outData, sizeof(convertedData)) == 0);
+}
+
+- (void)testNonInterleavedFloatToInterleavedFloatPCMConvert
+{
+	AudioStreamBasicDescription inASBD = { 0 };
+	inASBD.mSampleRate = 44100.0;
+	inASBD.mFormatID = kAudioFormatLinearPCM;
+	inASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved;
+	inASBD.mBytesPerPacket = 4;
+	inASBD.mFramesPerPacket = 1;
+	inASBD.mBytesPerFrame = 4;
+	inASBD.mChannelsPerFrame = 2;
+	inASBD.mBitsPerChannel = 32;
+	
+	AudioStreamBasicDescription outASBD = { 0 };
+	outASBD.mSampleRate = 44100.0;
+	outASBD.mFormatID = kAudioFormatLinearPCM;
+	outASBD.mFormatFlags = kAudioFormatFlagIsFloat | kAudioFormatFlagIsPacked;
+	outASBD.mBytesPerPacket = 8;
+	outASBD.mFramesPerPacket = 1;
+	outASBD.mBytesPerFrame = 8;
+	outASBD.mChannelsPerFrame = 2;
+	outASBD.mBitsPerChannel = 32;
+	
+	NSError *error = nil;
+
+	ATPAudioConverter *audioConverter = [[ATPAudioConverter alloc] initWithInputFormat:&inASBD outputFormat:&outASBD error:&error];
+	XCTAssert(audioConverter != nil);
+	XCTAssert(error == nil, @"%@", error);
+	
+	float inData0[4] = { 0.0, 0.0, 0.0, 0.0 };
+	float inData1[4] = { 1.0, 1.0, 1.0, 1.0 };
+	float convertedData[8] = {};
+	float outData[8] = { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0 };
+	
+	AudioBufferList *inBufferList = malloc(sizeof(AudioBufferList) + sizeof(AudioBuffer));
+	inBufferList->mNumberBuffers = 2;
+	inBufferList->mBuffers[0].mData = inData0;
+	inBufferList->mBuffers[0].mDataByteSize = sizeof(inData0);
+	inBufferList->mBuffers[0].mNumberChannels = 1;
+	inBufferList->mBuffers[1].mData = inData1;
+	inBufferList->mBuffers[1].mDataByteSize = sizeof(inData1);
+	inBufferList->mBuffers[1].mNumberChannels = 1;
+	
+	AudioBufferList outBufferList;
+	outBufferList.mNumberBuffers = 1;
+	outBufferList.mBuffers[0].mData = convertedData;
+	outBufferList.mBuffers[0].mDataByteSize = sizeof(convertedData);
+	outBufferList.mBuffers[0].mNumberChannels = 2;
+	
+	XCTAssert([audioConverter convertNumberOfPCMFrames:4 inputBufferList:inBufferList outputBufferList:&outBufferList error:&error]);
+	XCTAssert(error == nil, @"%@", error);
+
+	XCTAssert(memcmp(convertedData, outData, sizeof(convertedData)) == 0);
+
+	free(inBufferList);
 }
 
 @end
