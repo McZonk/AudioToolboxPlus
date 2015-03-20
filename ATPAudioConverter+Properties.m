@@ -218,4 +218,63 @@
 	return value;
 }
 
+- (NSArray *)channelMap
+{
+	return [self channelMapWithError:nil];
+}
+
+- (NSArray *)channelMapWithError:(NSError **)error
+{
+	UInt32 size = 0;
+	if (![self getSize:&size writable:NULL forProperty:kAudioConverterChannelMap error:error])
+	{
+		return nil;
+	}
+	
+	SInt32 *value = malloc(size);
+	if (![self getValue:value size:&size forProperty:kAudioConverterChannelMap error:error])
+	{
+		free(value);
+		return nil;
+	}
+
+	UInt32 count = size / sizeof(*value);
+	NSMutableArray *values = [NSMutableArray arrayWithCapacity:count];
+	
+	for (UInt32 index = 0; index < count; ++index)
+	{
+		[values addObject:@(value[index])];
+	}
+	
+	free(value);
+	
+	return values;
+}
+
+- (BOOL)setChannelMap:(NSArray *)channelMap
+{
+	return [self setChannelMap:channelMap error:nil];
+}
+
+- (BOOL)setChannelMap:(NSArray *)channelMap error:(NSError **)error
+{
+	UInt32 count = (UInt32)channelMap.count;
+	UInt32 size = sizeof(SInt32) * count;
+	
+	SInt32 *value = malloc(size);
+	
+	UInt32 index = 0;
+	for (NSNumber *channel in channelMap)
+	{
+		value[index] = (SInt32)channel.intValue;
+		++index;
+	}
+	
+	BOOL success = [self setValue:value size:size forProperty:kAudioConverterChannelMap error:error];
+	
+	free(value);
+	
+	return success;
+}
+
 @end

@@ -44,4 +44,10 @@
 - (AudioStreamBasicDescription)outputFormat;
 - (AudioStreamBasicDescription)outputFormatWithError:(NSError **)error;
 
+- (NSArray *)channelMap;
+- (NSArray *)channelMapWithError:(NSError **)error;
+
+- (BOOL)setChannelMap:(NSArray *)channelMap;
+- (BOOL)setChannelMap:(NSArray *)channelMap error:(NSError **)error;
+
 @end
