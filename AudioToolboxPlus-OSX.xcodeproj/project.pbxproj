@@ -11,11 +11,24 @@
 		50A0A11618EAEE2400F20799 /* ATPAudioConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11118EAEE2400F20799 /* ATPAudioConverter.m */; };
 		50A0A11718EAEE2400F20799 /* ATPAudioConverter+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */; };
 		50A0A11818EAEE2400F20799 /* NSError+ATPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A0A11518EAEE2400F20799 /* NSError+ATPError.m */; };
+		50A27C1D1ABC7ADB006B3986 /* AudioToolbox_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A27C1C1ABC7ADB006B3986 /* AudioToolbox_Tests.m */; };
+		50A27C1E1ABC7ADB006B3986 /* libAudioToolboxPlus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */; };
+		50A27C251ABC8390006B3986 /* AudioToolboxPlus_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A27C241ABC8390006B3986 /* AudioToolboxPlus_Tests.m */; };
 		50BCFE4718F5621C00227FC0 /* ATPAudioCompressionSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE4618F5621C00227FC0 /* ATPAudioCompressionSession.m */; };
 		50BCFE5018F5866000227FC0 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE4E18F5866000227FC0 /* TPCircularBuffer.c */; };
 		50BCFE5318F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c in Sources */ = {isa = PBXBuildFile; fileRef = 50BCFE5118F58C4400227FC0 /* TPCircularBuffer+AudioBufferList.c */; };
 		50FD86271A3F732B00D804AC /* ATPAudioConverter+PropertiesFromDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 50FD86261A3F732B00D804AC /* ATPAudioConverter+PropertiesFromDictionary.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		50A27C1F1ABC7ADB006B3986 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50A0A0D918EAED5A00F20799 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50A0A0E018EAED5A00F20799;
+			remoteInfo = AudioToolboxPlus;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5024F91118EDC6FD00B96639 /* NSValue+ATPAudioValueRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSValue+ATPAudioValueRange.h"; sourceTree = "<group>"; };
@@ -29,6 +42,10 @@
 		50A0A11318EAEE2400F20799 /* ATPAudioConverter+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ATPAudioConverter+Properties.m"; sourceTree = "<group>"; };
 		50A0A11418EAEE2400F20799 /* NSError+ATPError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+ATPError.h"; sourceTree = "<group>"; };
 		50A0A11518EAEE2400F20799 /* NSError+ATPError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+ATPError.m"; sourceTree = "<group>"; };
+		50A27C181ABC7ADB006B3986 /* AudioToolboxPlus Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AudioToolboxPlus Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		50A27C1B1ABC7ADB006B3986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50A27C1C1ABC7ADB006B3986 /* AudioToolbox_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AudioToolbox_Tests.m; sourceTree = "<group>"; };
+		50A27C241ABC8390006B3986 /* AudioToolboxPlus_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioToolboxPlus_Tests.m; sourceTree = "<group>"; };
 		50BCFE4518F5621C00227FC0 /* ATPAudioCompressionSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATPAudioCompressionSession.h; sourceTree = "<group>"; };
 		50BCFE4618F5621C00227FC0 /* ATPAudioCompressionSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATPAudioCompressionSession.m; sourceTree = "<group>"; };
 		50BCFE4E18F5866000227FC0 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
@@ -39,11 +56,23 @@
 		50FD86261A3F732B00D804AC /* ATPAudioConverter+PropertiesFromDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ATPAudioConverter+PropertiesFromDictionary.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		50A27C151ABC7ADB006B3986 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A27C1E1ABC7ADB006B3986 /* libAudioToolboxPlus.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
 		50A0A0D818EAED5A00F20799 = {
 			isa = PBXGroup;
 			children = (
 				50A0A10B18EAEDB300F20799 /* AudioToolboxPlus */,
+				50A27C191ABC7ADB006B3986 /* AudioToolboxPlus Tests */,
 				50A0A0E318EAED5A00F20799 /* Frameworks */,
 				50A0A0E218EAED5A00F20799 /* Products */,
 			);
@@ -53,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */,
+				50A27C181ABC7ADB006B3986 /* AudioToolboxPlus Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -89,6 +119,24 @@
 			name = AudioToolboxPlus;
 			sourceTree = "<group>";
 		};
+		50A27C191ABC7ADB006B3986 /* AudioToolboxPlus Tests */ = {
+			isa = PBXGroup;
+			children = (
+				50A27C1C1ABC7ADB006B3986 /* AudioToolbox_Tests.m */,
+				50A27C241ABC8390006B3986 /* AudioToolboxPlus_Tests.m */,
+				50A27C1A1ABC7ADB006B3986 /* Supporting Files */,
+			);
+			path = "AudioToolboxPlus Tests";
+			sourceTree = "<group>";
+		};
+		50A27C1A1ABC7ADB006B3986 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				50A27C1B1ABC7ADB006B3986 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -107,6 +155,24 @@
 			productReference = 50A0A0E118EAED5A00F20799 /* libAudioToolboxPlus.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		50A27C171ABC7ADB006B3986 /* AudioToolboxPlus Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 50A27C231ABC7ADB006B3986 /* Build configuration list for PBXNativeTarget "AudioToolboxPlus Tests" */;
+			buildPhases = (
+				50A27C141ABC7ADB006B3986 /* Sources */,
+				50A27C151ABC7ADB006B3986 /* Frameworks */,
+				50A27C161ABC7ADB006B3986 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				50A27C201ABC7ADB006B3986 /* PBXTargetDependency */,
+			);
+			name = "AudioToolboxPlus Tests";
+			productName = "AudioToolboxPlus Tests";
+			productReference = 50A27C181ABC7ADB006B3986 /* AudioToolboxPlus Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -115,6 +181,11 @@
 			attributes = {
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = McZonk;
+				TargetAttributes = {
+					50A27C171ABC7ADB006B3986 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
 			};
 			buildConfigurationList = 50A0A0DC18EAED5A00F20799 /* Build configuration list for PBXProject "AudioToolboxPlus-OSX" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -129,9 +200,20 @@
 			projectRoot = "";
 			targets = (
 				50A0A0E018EAED5A00F20799 /* AudioToolboxPlus */,
+				50A27C171ABC7ADB006B3986 /* AudioToolboxPlus Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		50A27C161ABC7ADB006B3986 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		50A0A0DD18EAED5A00F20799 /* Sources */ = {
@@ -149,7 +231,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		50A27C141ABC7ADB006B3986 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50A27C251ABC8390006B3986 /* AudioToolboxPlus_Tests.m in Sources */,
+				50A27C1D1ABC7ADB006B3986 /* AudioToolbox_Tests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		50A27C201ABC7ADB006B3986 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50A0A0E018EAED5A00F20799 /* AudioToolboxPlus */;
+			targetProxy = 50A27C1F1ABC7ADB006B3986 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		50A0A10318EAED5A00F20799 /* Debug */ = {
@@ -244,6 +343,54 @@
 			};
 			name = Release;
 		};
+		50A27C211ABC7ADB006B3986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AudioToolboxPlus Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		50A27C221ABC7ADB006B3986 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AudioToolboxPlus Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -264,6 +411,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		50A27C231ABC7ADB006B3986 /* Build configuration list for PBXNativeTarget "AudioToolboxPlus Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50A27C211ABC7ADB006B3986 /* Debug */,
+				50A27C221ABC7ADB006B3986 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

@@ -22,12 +22,12 @@
 
 @synthesize AudioConverter = audioConverter;
 
-- (id)initWithInputFormat:(AudioStreamBasicDescription)inputFormat outputFormat:(AudioStreamBasicDescription)outputFormat error:(out NSError **)outError
+- (instancetype)initWithInputFormat:(const AudioStreamBasicDescription *)inputFormat outputFormat:(const AudioStreamBasicDescription *)outputFormat error:(out NSError **)outError
 {
 	self = [super init];
 	if(self != nil)
 	{
-		OSStatus status = AudioConverterNew(&inputFormat, &outputFormat, &audioConverter);
+		OSStatus status = AudioConverterNew(inputFormat, outputFormat, &audioConverter);
 		if(status != noErr)
 		{
 			NSError *error = [NSError audioToolboxErrorWithStatus:status];
@@ -134,6 +134,26 @@
 - (BOOL)setData:(NSData *)data forProperty:(AudioConverterPropertyID)property error:(out NSError **)error
 {
 	return [self setValue:data.bytes size:(UInt32)data.length forProperty:property error:error];
+}
+
+- (BOOL)convertNumberOfPCMFrames:(UInt32)numberOfPCMFrames inputBufferList:(const AudioBufferList *)inputAudioBufferList outputBufferList:(AudioBufferList *)outputBufferList error:(out NSError **)outError
+{
+	OSStatus status = AudioConverterConvertComplexBuffer(audioConverter, numberOfPCMFrames, inputAudioBufferList, outputBufferList);
+	if (status != noErr)
+	{
+		NSError *error = [NSError audioToolboxErrorWithStatus:status];
+		if(outError != nil)
+		{
+			*outError = error;
+		}
+		else
+		{
+			NSLog(@"%s:%d: %@", __FUNCTION__, __LINE__, error);
+		}
+		return NO;
+	}
+	
+	return YES;
 }
 
 @end

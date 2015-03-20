@@ -80,7 +80,7 @@ enum {
 		return;
 	}
 	
-	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:*inputFormat outputFormat:outputFormat error:nil];
+	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:inputFormat outputFormat:&outputFormat error:nil];
 	self.converter = converter;
 	
 	outputFormat = converter.outputFormat;

@@ -12,7 +12,7 @@
 
 @interface ATPAudioConverter : NSObject
 
-- (instancetype)initWithInputFormat:(AudioStreamBasicDescription)inputFormat outputFormat:(AudioStreamBasicDescription)outputFormat error:(out NSError **)error;
+- (instancetype)initWithInputFormat:(const AudioStreamBasicDescription *)inputFormat outputFormat:(const AudioStreamBasicDescription *)outputFormat error:(out NSError **)error;
 
 @property (nonatomic, assign, readonly) AudioConverterRef AudioConverter;
 
@@ -25,5 +25,10 @@
 - (BOOL)setValue:(const void *)value size:(UInt32)size forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
 
 - (BOOL)setData:(NSData *)data forProperty:(AudioConverterPropertyID)property error:(out NSError **)error;
+
+/**
+ * Internally calls AudioConverterConvertComplexBuffer.
+ */
+- (BOOL)convertNumberOfPCMFrames:(UInt32)numberOfPCMFrames inputBufferList:(const AudioBufferList *)inputAudioBufferList outputBufferList:(AudioBufferList *)outputBufferList error:(out NSError **)error;
 
 @end
