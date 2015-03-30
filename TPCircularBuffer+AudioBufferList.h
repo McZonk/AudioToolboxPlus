@@ -66,7 +66,7 @@ AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferList(TPCircularBuffer *b
  * @param timestamp         The timestamp associated with the buffer, or NULL. Note that you can also pass a timestamp into TPCircularBufferProduceAudioBufferList, to set it there instead.
  * @return The empty buffer list, or NULL if circular buffer has insufficient space
  */
-AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferListWithAudioFormat(TPCircularBuffer *buffer, AudioStreamBasicDescription *audioFormat, UInt32 frameCount, const AudioTimeStamp *timestamp);
+AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferListWithAudioFormat(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat, UInt32 frameCount, const AudioTimeStamp *timestamp);
 
 /*!
  * Mark next audio buffer list as ready for reading
@@ -101,7 +101,7 @@ bool TPCircularBufferCopyAudioBufferList(TPCircularBuffer *buffer, const AudioBu
  */
 static __inline__ __attribute__((always_inline)) AudioBufferList *TPCircularBufferNextBufferList(TPCircularBuffer *buffer, AudioTimeStamp *outTimestamp) {
     int32_t dontcare; // Length of segment is contained within buffer list, so we can ignore this
-    TPCircularBufferABLBlockHeader *block = TPCircularBufferTail(buffer, &dontcare);
+    TPCircularBufferABLBlockHeader *block = (TPCircularBufferABLBlockHeader*)TPCircularBufferTail(buffer, &dontcare);
     if ( !block ) {
         if ( outTimestamp ) {
             memset(outTimestamp, 0, sizeof(AudioTimeStamp));
@@ -131,7 +131,7 @@ AudioBufferList *TPCircularBufferNextBufferListAfter(TPCircularBuffer *buffer, A
  */
 static __inline__ __attribute__((always_inline)) void TPCircularBufferConsumeNextBufferList(TPCircularBuffer *buffer) {
     int32_t dontcare;
-    TPCircularBufferABLBlockHeader *block = TPCircularBufferTail(buffer, &dontcare);
+    TPCircularBufferABLBlockHeader *block = (TPCircularBufferABLBlockHeader*)TPCircularBufferTail(buffer, &dontcare);
     if ( !block ) return;
     TPCircularBufferConsume(buffer, block->totalLength);
 }
@@ -205,14 +205,7 @@ UInt32 TPCircularBufferPeekContiguous(TPCircularBuffer *buffer, AudioTimeStamp *
  * @param audioFormat       The format of the audio stored in the buffer
  * @return The number of frames in the given audio format that can be stored in the buffer
  */
-static __inline__ __attribute__((always_inline)) UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat) {
-    int32_t availableBytes;
-    TPCircularBufferHead(buffer, &availableBytes);
-    size_t blockSize = sizeof(TPCircularBufferABLBlockHeader)
-                            + (sizeof(AudioBuffer) * (audioFormat->mFormatFlags & kAudioFormatFlagIsNonInterleaved ? audioFormat->mChannelsPerFrame-1 : 0));
-    if ( availableBytes <= blockSize ) return 0;
-    return (UInt32)(availableBytes-blockSize) / (audioFormat->mBytesPerFrame * (audioFormat->mFormatFlags & kAudioFormatFlagIsNonInterleaved ? audioFormat->mChannelsPerFrame : 1));
-}
+UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat);
     
 #ifdef __cplusplus
 }

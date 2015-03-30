@@ -84,7 +84,7 @@ AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferList(TPCircularBuffer *b
     return &block->bufferList;
 }
 
-AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferListWithAudioFormat(TPCircularBuffer *buffer, AudioStreamBasicDescription *audioFormat, UInt32 frameCount, const AudioTimeStamp *timestamp) {
+AudioBufferList *TPCircularBufferPrepareEmptyAudioBufferListWithAudioFormat(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat, UInt32 frameCount, const AudioTimeStamp *timestamp) {
     return TPCircularBufferPrepareEmptyAudioBufferList(buffer,
                                                        (audioFormat->mFormatFlags & kAudioFormatFlagIsNonInterleaved) ? audioFormat->mChannelsPerFrame : 1,
                                                        audioFormat->mBytesPerFrame * frameCount,
@@ -264,4 +264,24 @@ UInt32 TPCircularBufferPeek(TPCircularBuffer *buffer, AudioTimeStamp *outTimesta
 
 UInt32 TPCircularBufferPeekContiguous(TPCircularBuffer *buffer, AudioTimeStamp *outTimestamp, const AudioStreamBasicDescription *audioFormat, UInt32 contiguousToleranceSampleTime) {
     return _TPCircularBufferPeek(buffer, outTimestamp, audioFormat, contiguousToleranceSampleTime);
+}
+
+UInt32 TPCircularBufferGetAvailableSpace(TPCircularBuffer *buffer, const AudioStreamBasicDescription *audioFormat) {
+    // Look at buffer head; make sure there's space for the block metadata
+    int32_t availableBytes;
+    TPCircularBufferABLBlockHeader *block = (TPCircularBufferABLBlockHeader*)TPCircularBufferHead(buffer, &availableBytes);
+    if ( !block ) return 0;
+    assert(!((unsigned long)block & 0xF) /* Beware unaligned accesses */);
+    
+    // Now find out how much 16-byte aligned audio we can store in the space available
+    int numberOfBuffers = audioFormat->mFormatFlags & kAudioFormatFlagIsNonInterleaved ? audioFormat->mChannelsPerFrame : 1;
+    char * endOfBuffer = (char*)block + availableBytes;
+    char * dataPtr = (char*)align16byte((long)(&block->bufferList + sizeof(AudioBufferList)+((numberOfBuffers-1)*sizeof(AudioBuffer))));
+    if ( dataPtr >= endOfBuffer ) return 0;
+    int32_t availableAudioBytes = (int)(endOfBuffer - dataPtr);
+    
+    int32_t availableAudioBytesPerBuffer = availableAudioBytes / numberOfBuffers;
+    availableAudioBytesPerBuffer -= (availableAudioBytesPerBuffer % (16-1));
+    
+    return availableAudioBytesPerBuffer > 0 ? availableAudioBytesPerBuffer / audioFormat->mBytesPerFrame : 0;
 }
