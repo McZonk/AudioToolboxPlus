@@ -80,7 +80,14 @@ enum {
 		return;
 	}
 	
-	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:inputFormat outputFormat:&outputFormat error:nil];
+	NSError *error = nil;
+	ATPAudioConverter * const converter = [[ATPAudioConverter alloc] initWithInputFormat:inputFormat outputFormat:&outputFormat error:&error];
+	if (converter == nil)
+	{
+		NSLog(@"%s:%d:TODO: error %@", __FUNCTION__, __LINE__, error);
+		return;
+	}
+	
 	self.converter = converter;
 	
 	outputFormat = converter.outputFormat;
@@ -92,7 +99,12 @@ enum {
 	NSData *magicCookie = converter.magicCookie;
 	
 	CMAudioFormatDescriptionRef outputFormatDescription = NULL;
-	CMAudioFormatDescriptionCreate(NULL, &outputFormat, sizeof(channelLayout), &channelLayout, magicCookie.length, magicCookie.bytes, NULL, &outputFormatDescription);
+	OSStatus status = CMAudioFormatDescriptionCreate(NULL, &outputFormat, sizeof(channelLayout), &channelLayout, magicCookie.length, magicCookie.bytes, NULL, &outputFormatDescription);
+	if (status != noErr)
+	{
+		NSLog(@"%s:%d:TODO: status %d", __FUNCTION__, __LINE__, status);
+		return;
+	}
 	
 	self.outputFormatDescription = outputFormatDescription;
 	
